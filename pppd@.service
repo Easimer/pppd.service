@@ -1,0 +1,11 @@
+[Unit]
+Description=PPP over Serial link
+After=network.target
+
+[Service]
+EnvironmentFile=-/etc/default/pppd-%i
+ExecStart=/usr/sbin/pppd -detach crtscts lock ${LOCAL_IP}:${REMOTE_IP} /dev/%i $SPEED
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
